@@ -1,5 +1,107 @@
 
 
+.sprite_insta_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -53px -235px;
+    width: 22px;
+    height: 22px;
+}
+
+.sprite_write_logo {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -94px -72px;
+    width: 103px;
+    height: 29px;
+}
+
+.sprite_compass_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -130px -286px;
+    width: 23px;
+    height: 23px;
+}
+
+.sprite_user_icon_outline {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -272px -182px;
+    width: 22px;
+    height: 24px;
+}
+
+.sprite_heart_icon_outline {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -52px -261px;
+    width: 24px;
+    height: 22px;
+}
+
+.sprite_small_search_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -337px -246px;
+    width: 10px;
+    height: 10px;
+}
+
+.sprite_more_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -301px -218px;
+    width: 15px;
+    height: 3px;
+}
+
+.sprite_bubble_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -239px -202px;
+    width: 24px;
+    height: 24px;
+}
+
+.sprite_share_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -324px -52px;
+    width: 21px;
+    height: 24px;
+}
+
+.sprite_bookmark_outline {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -237px -286px;
+    width: 19px;
+    height: 24px;
+}
+.sprite_bookmark_outline.on {
+    background: url('../imgs/background01.png') no-repeat -159px -286px;
+    width: 19px;
+    height: 24px;
+}
+
+.sprite_small_heart_icon_outline {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -323px -274px;
+    width: 12px;
+    height: 11px;
+}
+
+.sprite_camera_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -271px -104px;
+    width: 24px;
+    height: 22px;
+}
+
+.sprite_insta_big_logo {
+    display: inline-block;
+    background: url('../imgs/background02.png') no-repeat -98px -150px;
+    width: 175px;
+    height: 51px;
+}
+
+.sprite_plus_icon {
+    display: inline-block;
+    background: url('../imgs/background01.png') no-repeat -187px -202px;
+    width: 23px;
+    height: 23px;
+}
 
 body {
     background: #fafafa;
@@ -19,4 +121,118 @@ body {
     width: 975px;
     height: 77px;
     margin: 0 auto;
+    display: flex; /* 부모에게 flex를 줘야 자식들이 가로로 정렬 가능 */
+    /* justify-content: center;  */
+    /*  
+        flex에서 이(justify-content) 속성을 제공합니다. 
+        justify-content는 말 그대로 양 끝을 의미합니다.
+        만약 justify-content를 center로 주게 되면 x축으로 가운데 정렬이 됩니다.
+        하지만 저희는 center를 쓰지 않고 space-between을 사용할거에요.
+        space-between같은 경우는 between은 사이를 의미하고
+        space는 공간이죠? 그러니깐 space-between은 사이 사이 공간을 알맞게 분배시켜주겠다라는 뜻입니다.
+    */
+    justify-content: space-between;
+    align-items: center; /* 이런 식으로 사용하면 세로도 중앙으로 정렬이 됩니다. */
+}
+
+#header .inner .logo > a {
+    color:transparent;
+}
+
+#header .inner .logo .sprite_insta_icon {
+    /* relative : 요소 자기 자신을 기준으로 배치 */
+    position: relative; /* 기준을 잡아라~~ 자식 요소 때문에 넣어준 겁니다. */
+    margin-right: 30px;
+}
+
+#header .inner .logo .sprite_insta_icon:after  {
+    /* 
+       :after 가상 요소는 선택한 요소의 내부(content) 뒤에 새로운 요소를 생성하며, 
+       이를 사용하여 콘텐츠를 스타일링하는 것이 가능합니다.
+    */
+    content: ''; /* 무조건 적어야 하는 거임 */
+    /* 막대기 만드는 작업이쥬? start */
+    width: 1px;
+    height: 28px;
+    background: #000;
+    /* 막대기 만드는 작업이쥬? end */
+    position: absolute; /* 부모를 기준으로 위치를 잡는 친구인데 근데 그 기준을 잡는 조건이 뭐냐면 absolute, relative, fixed 3가지 중 하나라도 가지고 있어야 한다. 라는 조건입니다. */
+    right: -15px;
+    top: -4px;
+}
+
+#header .inner .logo div {
+    vertical-align: middle;
+}
+
+#header .inner .logo div:nth-child(2) {
+    transform: translateY(2px);
+}
+
+#header .search_box {
+    position: relative;
+}
+
+#search-field {
+    width: 185px;
+    height: 28px;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    padding: 3px 30px;
+    color:#999;
+    font-weight: 400; /* 글꼴의 굵기 */
+    text-align: left; /* 글자 윈쪽 */
+    font-size: 14px;
+    outline: none;
+}
+
+/* 검색이라는 글자가 사라짐. */
+#search-field::placeholder {
+    font-size: 0;
+}
+
+#search-field:focus::placeholder {
+    font-size: 14px;
+}
+
+#header .search_box .fake_field {
+    position: absolute;
+    /* 부모를 기준으로 위치를 정할거임. 부모님 search_box임. */
+
+    /* 이 부분은 가운데로 정렬하는 공식임. */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    /* pointer-events: none;은 CSS의 속성 중 하나로, 
+    해당 요소에 대한 마우스 이벤트 처리를 비활성화(disabled)하는 데 사용됩니다.
+    이 속성을 적용한 요소는 마우스 클릭, 
+    마우스 오버 등의 이벤트가 발생해도 해당 이벤트가 요소에 적용되지 않고, 
+    부모 요소나 형제 요소 등 다른 요소에 이벤트가 전달됩니다. 
+    즉, 마치 해당 요소가 존재하지 않는 것처럼 작동합니다. */
+}
+
+/* #search-field:focus이 코드의 의미는 search-filed가 focus 되었을 때 이고
+   ~(물결표)는 그 근처에 있는 친구중에 .fake_field라는 가장 옆에 있는 친구를 찾게 됩니다.
+   어떤 말이냐면 여러 .fake_field가 있을 수 있죠? 그중에서 제일 가까운 .fake_filed를 찾는 다는 겁니다.
+   그러면 자동적으로 search-filed밑에 있는 .fake-field가 선택 되겠죠??
+   span:nth-child(1)는 span의 첫 번째를 의미함. 다른 말로 하면 돋보기 icon을 말하는 거임.
+*/
+#search-field:focus ~ .fake_field > span:nth-child(1){
+    transform: translateX(-105px);
+}
+
+#search-field:focus ~ .fake_field > span:nth-child(2){
+    display: none;
+}
+
+#header .right_icons {
+    width: 132px;
+    display: flex;
+    justify-content: space-between;
+    /* .right_icons의 넓이를 132px로 딱 정해주고 display를 flex로 놔서
+    justify-content를 사용할 수 있게 해줄겁니다. 
+    justify-content를 저희가 사용할 건데 space-between을 이용해서
+    icon들 마다 사이 사이 공백을 넣어 줄겁니다. */
 }
