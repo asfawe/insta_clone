@@ -322,6 +322,11 @@ body {
 .contents .bottom_icons .right_icons > div {
     cursor: pointer;
 }
+
+.heart_btn.on .sprite_heart_icon_outline {
+    background: url('../imgs/background01.png') no-repeat -26px -261px;
+}
+
 .contents .likes {
     padding: 5px 20px;
     color: #262626;
