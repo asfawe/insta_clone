@@ -478,6 +478,7 @@ body {
 }
 
 .hidden_menu {
+    display: none;
     width: 600px;
     height: 100px;
     /* background: red; */
@@ -550,6 +551,11 @@ body {
 
     .side_box {
         display: none;
+    }
+
+    .hidden_menu{
+        display:block;
+
     }
 }
 
