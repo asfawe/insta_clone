@@ -42,6 +42,31 @@ function delegationFunc(e) {
     heartbeat라는 이름으로 속성을 가지고 있으면 
     이 안에 있는 문구를 실행해!! 라는 뜻입니다.*/
     if(elem.matches('[data-name="heartbeat"]')) {
+
+        $.ajax({
+            type: 'POST', /* 어떤 방식으로 통신을 할 거냐? */
+            url:'data/like.json', /* 통신할 url을 받아와주는 겁니다. 저희는 data/like.json과 통신을 하겠다는 말입니다. */
+            data:37,
+            // data:{pk}, /* data는 Ajax 통신에서 서버로 전송할 데이터를 설정하는 옵션입니다 */
+            /* (tmi) pk: backend로 가면 pk를 받아올겁니다. 
+            pk를 이용해서 numbering을 찍어내고요. 
+            거기에 각유저들이 가지고 있는 pk값있어서 그걸 갱신을 통해서 
+            고유한 번호를 찍어내거나 작성을 합니다.  */
+        
+            dataType:'json', /* 내가 보낸 애가 어떤 데이터 타입으로 들어올건지. */
+            success: function(response){ /* 통신이 완료 되었을 때 기본적으로 response 객체를 받아온다.
+            response객체는 우리가 통신을 성공한 데이터들이 들어옵니다. */
+                let likeCount = document.querySelector('#like-count-37');
+                likeCount.innerHTML = '좋아요' + response.like_count + '개';
+                                             /* response.like_count 같은 경우는 data.like.json안에 있는 like_count입니다.
+                                             왜냐하면.. response는 통신이 완료 되었을 때 통신의 성공한 데이터들을 받아오기 때문이죠. */
+            },
+            error:function(request, status, error){
+                alert('로그인이 필요합니다.');
+                window.location.replace("https://www.naver.com")
+            }
+
+        });
         console.log('하트!');
     } else if(elem.matches('[data-name="bookmark"]')) {
         console.log('북마크!');
