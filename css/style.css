@@ -126,6 +126,10 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+#header.on {
+    position: fixed;
+}
+
 #header .inner {
     width: 975px;
     height: 77px;
@@ -142,6 +146,21 @@ body {
     */
     justify-content: space-between;
     align-items: center; /* 이런 식으로 사용하면 세로도 중앙으로 정렬이 됩니다. */
+    transition: all 1s; /* transition 요소가 어떻게 변화하는지에 대한 애니메이션 효과를 설정하는 속성입니다. */
+    /* 여기서 "all"은 모든 속성에 대해 적용되는 것을 의미합니다. 
+    예를 들어, 만약 요소의 너비, 높이, 배경색상 등이 모두 변경된다면, 
+    이 애니메이션 효과는 이러한 모든 변화에 적용됩니다. 
+    
+    "1s"는 이 효과가 적용되는 시간을 나타냅니다. 
+    이 경우에는 1초 동안 요소가 변화하는 동안 애니메이션 효과가 발생합니다. 
+    
+    즉, "transition: all 1s"를 사용하면 
+    요소의 모든 속성이 변경될 때 1초 동안 부드럽게 애니메이션 효과가 발생하도록 설정할 수 있습니다. 
+    이러한 속성은 웹사이트나 애플리케이션에서 시각적인 효과를 추가하는 데 유용하게 사용됩니다.*/
+}
+
+#header.on .inner {
+    height: 52px;
 }
 
 #header .inner .logo > a {
@@ -176,6 +195,16 @@ body {
 
 #header .inner .logo div:nth-child(2) {
     transform: translateY(2px);
+}
+
+#header.on .inner .logo .sprite_insta_icon:after  {
+    opacity: 0;
+    transition: all .5s;
+}
+
+#header.on .inner .logo div:nth-child(2) {
+    opacity: 0;
+    transition: all .5s; 
 }
 
 #header .search_box {
@@ -323,7 +352,7 @@ body {
     cursor: pointer;
 }
 
-.heart_btn.on .sprite_heart_icon_outline {
+.sprite_heart_icon_outline.on {
     background: url('../imgs/background01.png') no-repeat -26px -261px;
 }
 
@@ -396,6 +425,10 @@ body {
     top: 0;
 }
 
+.side_box.on {
+    position: fixed; /* fixed는 기준점이 window다. 화면이다. */
+    top: 80px;
+}
 .side_box .profile_thumb {
     width: 50px;
     height: 50px;
