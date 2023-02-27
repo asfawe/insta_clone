@@ -43,10 +43,12 @@ function delegationFunc(e) {
     이 안에 있는 문구를 실행해!! 라는 뜻입니다.*/
     if(elem.matches('[data-name="heartbeat"]')) {
 
+        console.log('하트!');
+        let pk = elem.getAttribute('name'); // 37
         $.ajax({
             type: 'POST', /* 어떤 방식으로 통신을 할 거냐? */
             url:'data/like.json', /* 통신할 url을 받아와주는 겁니다. 저희는 data/like.json과 통신을 하겠다는 말입니다. */
-            data:37,
+            data:pk,
             // data:{pk}, /* data는 Ajax 통신에서 서버로 전송할 데이터를 설정하는 옵션입니다 */
             /* (tmi) pk: backend로 가면 pk를 받아올겁니다. 
             pk를 이용해서 numbering을 찍어내고요. 
@@ -67,14 +69,100 @@ function delegationFunc(e) {
             }
 
         });
-        console.log('하트!');
+        
     } else if(elem.matches('[data-name="bookmark"]')) {
         console.log('북마크!');
-    } else if(elem.matches('[data-name="share"]')) {
-        console.log('공유!');
-    } else if(elem.matches('[data-name="more"]')) {
-        console.log('더보기!');
+
+        let pk = elem.getAttribute('name'); // 37
+
+        $.ajax({
+            type: 'POST',
+            url: 'data/bookmark.json',
+            data:{pk},
+            dataType:'json',
+            success:function(response){
+                let bookmarkCount = document.querySelector('#bookmark-count-37');
+                bookmarkCount.innerHTML = '북마크' + response.bookmark_count + '개'
+            },
+            error:function(request, status, error){
+                alert('로그인이 필요합니다.');
+                window.location.replace("https://www.naver.com")
+            }
+        });
+
+    } else if(elem.matches('[data-name="comment"]')) {
+        let content = document.querySelector('#add-comment-post-37 > input[type=text]').value; /* 여기서 벨류는 input에 들어간 글자들을 말한다. */
+    
+        if(content.length > 140){
+            alert('댓글은 최대 140자 입력 가능합니다. 현재 글자수 : ' + content.length);
+            return;
+        }
+
+        $.ajax({
+            type:'POST',
+            url: './comment.html',
+            data:{
+                'pk' : 37,
+                'content': content,
+            },
+            dataType: 'html',
+            success: function(data){
+                document.querySelector('#comment-list-ajax-post-37').insertAdjacentHTML('afterbegin', data);
+                /* #comment-list-ajax-post-37이라는 id 속성을 가진 요소를 찾아서, 해당 요소의 첫 번째 자식으로 data 변수에 저장된 HTML 콘텐츠를 삽입하는 코드입니다. */
+            },
+            error: function(request, status, error){
+                alert('문제가 발생했습니다.');
+            }
+        });
+
+        document.querySelector('#add-comment-post-37 > input[type=text]').value = '';
+    } else if(elem.matches('[data-name="comment_delete"]')) {
+        $.ajax({
+            type:'POST',
+            url:'data/delete.json',
+            data: {
+                'pk':37,
+
+            },
+            dataType:'json',
+            success: function(response){
+                if(response.status){ /* status값이 존재 한다면 댓글을 지워라. */
+                    let comt = document.querySelector('.comment-detail');
+                    comt.remove();
+                }
+            },
+            error: function(request, status, error){
+                alert('문제가 발생했습니다.');
+                window.location.replace('https://www.naver.com');
+            }
+        });
+    } else if(elem.matches('[data-name="follow"]')) {
+        $.ajax({
+            type:'POST',
+            url:'data/follow.json',
+            data:{
+                'pk':37,
+            },
+            dataType:'json',
+            success:function(response){
+                if(response.status){
+                    document.querySelector('input.follow').value = '팔로잉';
+                } else {
+                    document.querySelector('input.follow').value = '팔로워';
+                }
+            },
+            error: function(request, status, error){
+                alert('문제가 발생했습니다.');
+                window.location.replace('https://www.naver.com');
+            }
+        })
     }
+    
+    // else if(elem.matches('[data-name="share"]')) {
+    //     console.log('공유!');
+    // } else if(elem.matches('[data-name="more"]')) {
+    //     console.log('더보기!');
+    // }
 
     elem.classList.toggle('on');
 }
@@ -105,6 +193,9 @@ function resizeFunc() {
 }
 
 function scrollFunc() {
+
+    let scrollHeight = pageYOffset + window.innerHeight;
+    let documentHeight = document.body.scrollHeight;
     if(pageYOffset >= 10){
         header.classList.add('on');
         sidebox.classList.add('on');
@@ -122,6 +213,43 @@ function scrollFunc() {
             sidebox.removeAttribute('style');
         }
     }
+
+    if(scrollHeight >= documentHeight){
+        let page = document.querySelector('#page').value;
+        document.querySelector('#page').value = parseInt(page) + 1;
+
+        callMorePostAjax(page);
+
+        if(page >= 5){
+            return;
+        }
+    }
+
+}
+
+function callMorePostAjax(page) {
+
+    if(page >= 5){
+        return;
+    }
+
+    $.ajax({
+        type:'POST',
+        url:'./post.html',
+        data:{
+            'page':page,
+        },
+        dataType:'html',
+        success: addMorePostAjax,
+        error: function(request, status, error){
+            alert('문제가 발생했습니다.');
+            window.location.replace('https://www.naver.com');
+        }
+    })
+}
+
+function addMorePostAjax(data){
+    delegation.insertAdjacentHTML('beforeend',data);
 }
 
 /* 새로고침 했을 때 스크롤 최상단으로 이동. */
